@@ -10,6 +10,9 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,7 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Login extends AppCompatActivity {
-    FirebaseAuth mAuth;
+    FirebaseAuth mFirebaseAuth;
     DatabaseReference mDatabaseRef;
     EditText mEmail, mPassword;
     Button mJoin, mLogin;
@@ -28,16 +31,17 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+
+        EdgeToEdge.enable(this);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });*/
+        });
 
         // Initialize
-        mAuth = FirebaseAuth.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
         mEmail = findViewById(R.id.email);
@@ -45,7 +49,7 @@ public class Login extends AppCompatActivity {
         mJoin = findViewById(R.id.join);
         mLogin = findViewById(R.id.login);
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
         if(currentUser != null) {
             // current user is logged in -> navigate to MainActivity
             Intent intent = new Intent(Login.this, MainActivity.class);
@@ -59,7 +63,7 @@ public class Login extends AppCompatActivity {
                 String strEmail = mEmail.getText().toString();
                 String strPassword = mPassword.getText().toString();
 
-                mAuth.signInWithEmailAndPassword(strEmail, strPassword).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                mFirebaseAuth.signInWithEmailAndPassword(strEmail, strPassword).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
