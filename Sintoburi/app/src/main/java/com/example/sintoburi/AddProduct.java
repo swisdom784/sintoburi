@@ -1,17 +1,20 @@
 package com.example.sintoburi;
 
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AddProduct extends AppCompatActivity {
 
@@ -21,8 +24,12 @@ public class AddProduct extends AppCompatActivity {
     private EditText priceEditText;
     private ImageView photoImageView;
     private ProgressBar progressBar;
+    private Spinner tagSpiner;
 
     private Uri imageUri;
+
+    private String[] tags = {"과일", "채소", "수산물", "육류", "간식",
+            "생필품", "식물", "건강식품", "기타"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +40,11 @@ public class AddProduct extends AppCompatActivity {
         priceEditText = findViewById(R.id.priceEditText);
         photoImageView = findViewById(R.id.photoImageView);
         progressBar = findViewById(R.id.progressBar);
+        tagSpiner = findViewById(R.id.tagSpinner);
+
+        // 태그 스피너에 어댑터 설정
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tags);
+        tagSpiner.setAdapter(adapter);
 
         Button imageAddButton = findViewById(R.id.imageAddButton);
         Button submitButton = findViewById(R.id.submitButton);
@@ -72,6 +84,7 @@ public class AddProduct extends AppCompatActivity {
     private void uploadItem() {
         String title = titleEditText.getText().toString().trim();
         String price = priceEditText.getText().toString().trim();
+        String tag = tags[tagSpiner.getSelectedItemPosition()]; // 선택된 태그
 
         if (title.isEmpty()) {
             titleEditText.setError("글 제목을 입력하세요");
