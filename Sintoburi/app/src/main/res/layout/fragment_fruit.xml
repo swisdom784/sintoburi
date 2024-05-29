@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:hint="Search"
         android:padding="14dp"
-        android:elevation="2dp" <!-- 그림자 추가 -->
-        android:background="@drawable/edittext_bg" <!-- 테두리 둥글게 -->
-        />
+        android:elevation="2dp"/> <!-- 그림자 추가 -->
+         <!-- 테두리 둥글게 -->
+
 
     <!-- 카테고리 버튼들 -->
     <GridLayout
