@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "879036322905",
+    "project_id": "glow-hackathon-sintoburi",
+    "storage_bucket": "glow-hackathon-sintoburi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879036322905:android:850630e57b4b837622cd48",
+        "android_client_info": {
+          "package_name": "com.example.sintoburi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5xjGrDP0xKAEXBKX7YGdlNV1hgHQ7qt4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
