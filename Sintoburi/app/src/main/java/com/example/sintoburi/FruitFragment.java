@@ -8,22 +8,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class FruitFragment extends Fragment {
+
     private DatabaseReference mDatabase;
-    private List<String> items;
-    private LinearLayout contentLayout;
+    private List<Product> productList;
+    private RecyclerView recyclerView;
+    private ProductAdapter productAdapter;
     private EditText searchEditText;
 
     @Nullable
@@ -32,11 +38,16 @@ public class FruitFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fruit, container, false);
 
         searchEditText = view.findViewById(R.id.searchEditText);
-        contentLayout = view.findViewById(R.id.contentLayout);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Firebase Database 참조
         mDatabase = FirebaseDatabase.getInstance().getReference().child("products");
-        items = new ArrayList<>();
+        productList = new ArrayList<>();
+
+        // 어댑터 설정
+        productAdapter = new ProductAdapter(getContext(), productList);
+        recyclerView.setAdapter(productAdapter);
 
         // 데이터 로드
         loadDataFromFirebase();
@@ -55,7 +66,7 @@ public class FruitFragment extends Fragment {
             public void afterTextChanged(Editable s) {}
         });
 
-        // LinearLayout 클릭 이벤트 설정
+        // 카테고리 버튼 클릭 이벤트 설정
         setLinearLayoutListener(view, R.id.fruitButton, "과일");
         setLinearLayoutListener(view, R.id.vegetableButton, "채소");
         setLinearLayoutListener(view, R.id.seafoodButton, "수산물");
@@ -72,19 +83,19 @@ public class FruitFragment extends Fragment {
 
     private void setLinearLayoutListener(View parentView, int layoutId, String category) {
         LinearLayout layout = parentView.findViewById(layoutId);
-        layout.setOnClickListener(v -> displayContent(category));
+        layout.setOnClickListener(v -> filterByCategory(category));
     }
 
     private void loadDataFromFirebase() {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                items.clear();
+                productList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String item = snapshot.child("name").getValue(String.class);
-                    items.add(item);
+                    Product product = snapshot.getValue(Product.class);
+                    productList.add(product);
                 }
-                filterData(searchEditText.getText().toString());
+                productAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -95,21 +106,24 @@ public class FruitFragment extends Fragment {
     }
 
     private void filterData(String keyword) {
-        contentLayout.removeAllViews();
-        for (String item : items) {
-            if (item.toLowerCase().contains(keyword.toLowerCase())) {
-                TextView itemTextView = new TextView(getActivity());
-                itemTextView.setText(item);
-                contentLayout.addView(itemTextView);
+        List<Product> filteredList = new ArrayList<>();
+        for (Product product : productList) {
+            if (product.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                filteredList.add(product);
             }
         }
+        productAdapter = new ProductAdapter(getContext(), filteredList);
+        recyclerView.setAdapter(productAdapter);
     }
 
-    private void displayContent(String category) {
-        contentLayout.removeAllViews();
-
-        TextView contentTextView = new TextView(getActivity());
-        contentTextView.setText(category + "에 해당하는 내용입니다.");
-        contentLayout.addView(contentTextView);
+    private void filterByCategory(String category) {
+        List<Product> filteredList = new ArrayList<>();
+        for (Product product : productList) {
+            if (product.getCategory().equals(category)) {
+                filteredList.add(product);
+            }
+        }
+        productAdapter = new ProductAdapter(getContext(), filteredList);
+        recyclerView.setAdapter(productAdapter);
     }
 }
