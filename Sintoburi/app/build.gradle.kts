@@ -35,13 +35,15 @@ android {
 
 dependencies {
 
-    // Import the Firebase BoM
-    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
-    // TODO: Add the dependencies for Firebase products you want to use
-    // When using the BoM, don't specify versions in Firebase dependencies
-    implementation("com.google.firebase:firebase-analytics")
-    // Add the dependencies for any other desired Firebase products
-    // https://firebase.google.com/docs/android/setup#available-libraries
+    dependencies {
+        // Import the BoM for the Firebase platform
+        implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+
+        // Add the dependency for the Firebase Authentication library
+        // When using the BoM, you don't specify versions in Firebase library dependencies
+        implementation("com.google.firebase:firebase-auth")
+        implementation("com.google.firebase:firebase-database")
+    }
 
     implementation(libs.appcompat)
     implementation(libs.material)
