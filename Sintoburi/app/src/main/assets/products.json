@@ -1,0 +1,19 @@
+{
+  "products": {
+    "product1": {
+      "name": "사과",
+      "price": "10.00",
+      "imageUrl": "http://example.com/product1.jpg",
+      "description": "Description of product 1",
+      "category": "과일"
+    },
+    "product2": {
+      "name": "양배추",
+      "price": "20.00",
+      "imageUrl": "http://example.com/product2.jpg",
+      "description": "Description of product 2",
+      "category": "채소"
+    }
+  }
+}
+
