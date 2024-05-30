@@ -1,149 +1,127 @@
 package com.example.sintoburi;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.imageview.ShapeableImageView;
+
+import java.io.IOException;
 
 public class MyPage extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
-    private ImageView profileImageView;
-    private TextView usernameTextView;
-    private TextView emailTextView;
-    private TextView phoneNumberTextView;
-
-    private Uri imageUri;
+    private ShapeableImageView profileImageView;
+    private Button editProfileButton;
+    private Button manageProductsButton;
+    private Button transactionHistoryButton;
+    private Button addProductButton;
+    private Button wishlistButton;
+    private Button chatHistoryButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_mypage);
 
+        // 툴바 설정
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle("마이 페이지");
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        // 툴바에 뒤로가기 버튼 추가
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
+        // 뷰 초기화
         profileImageView = findViewById(R.id.profileImageView);
-        usernameTextView = findViewById(R.id.usernameTextView);
-        emailTextView = findViewById(R.id.emailTextView);
-        phoneNumberTextView = findViewById(R.id.phoneNumberTextView);
+        editProfileButton = findViewById(R.id.editProfileButton);
+        manageProductsButton = findViewById(R.id.manageProductsButton);
+        transactionHistoryButton = findViewById(R.id.transactionHistoryButton);
+        addProductButton = findViewById(R.id.addProductButton);
+        wishlistButton = findViewById(R.id.wishlistButton);
+        chatHistoryButton = findViewById(R.id.chatHistoryButton);
 
-        // Dummy data for demonstration
-        usernameTextView.setText("User123");
-        emailTextView.setText("user123@example.com");
-        phoneNumberTextView.setText("010-1234-5678");
+        // 프로필 사진 클릭 시 갤러리 열기
+        profileImageView.setOnClickListener(v -> openGallery());
 
-        Button editProfileButton = findViewById(R.id.editProfileButton);
-        Button manageProductsButton = findViewById(R.id.manageProductsButton);
-        Button transactionHistoryButton = findViewById(R.id.transactionHistoryButton);
-        Button addProductButton = findViewById(R.id.addProductButton);
-        Button wishlistButton = findViewById(R.id.wishlistButton);
-        Button chatHistoryButton = findViewById(R.id.chatHistoryButton);
-
-        profileImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
-
+        // 클릭 리스너 설정
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Edit profile logic here
-                Toast.makeText(MyPage.this, "Edit Profile", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyPage.this, "내 정보 수정 버튼 클릭됨", Toast.LENGTH_SHORT).show();
             }
         });
 
         manageProductsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Manage products logic here
-                Toast.makeText(MyPage.this, "Manage Products", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyPage.this, "내 상품 관리 버튼 클릭됨", Toast.LENGTH_SHORT).show();
             }
         });
 
         transactionHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Transaction history logic here
-                Toast.makeText(MyPage.this, "Transaction History", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyPage.this, "내 거래 기록 버튼 클릭됨", Toast.LENGTH_SHORT).show();
             }
         });
 
         addProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Add product logic here
-                Toast.makeText(MyPage.this, "Add Product", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyPage.this, "상품 등록 버튼 클릭됨", Toast.LENGTH_SHORT).show();
             }
         });
 
         wishlistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Wishlist logic here
-                Toast.makeText(MyPage.this, "Wishlist", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyPage.this, "찜 버튼 클릭됨", Toast.LENGTH_SHORT).show();
             }
         });
 
         chatHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Chat history logic here
-                Toast.makeText(MyPage.this, "Chat History", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyPage.this, "채팅 기록 버튼 클릭됨", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    // 갤러리 열기
     private void openGallery() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요"), PICK_IMAGE_REQUEST);
+        Intent galleryIntent = new Intent();
+        galleryIntent.setType("image/*");
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(galleryIntent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
+    // 갤러리에서 선택한 이미지 처리
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
-            // Glide를 사용하여 원형 이미지로 로드
-            Glide.with(this)
-                    .load(imageUri)
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(profileImageView);
+            Uri selectedImageUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
+                // 선택한 이미지를 프로필 사진으로 설정
+                profileImageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "이미지를 불러오는 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+            }
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
