@@ -7,42 +7,110 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#FFF2DF"
     tools:context=".Login">
-
-    <EditText
-        android:id="@+id/email"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/sintoburi_logo_img"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="신토불이"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:fontFamily="@font/gureum_regular"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="0dp"
+            android:src="@drawable/sintoburi_logo_img2"/>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/email"
-        android:fontFamily="@font/moheomga_regular"
-        android:layout_marginTop="250dp"
-        android:layout_marginHorizontal="30dp"/>
+        android:layout_marginTop="150dp"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/mail"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="center"/>
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:fontFamily="@font/moheomga_regular"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="30dp"/>
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/password"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/password"
-        android:fontFamily="@font/moheomga_regular"
-        android:layout_margin="30dp"/>
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/password"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="center"/>
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:fontFamily="@font/moheomga_regular"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="30dp"/>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/join"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginVertical="30dp"
-        android:text="회원가입"
-        android:fontFamily="@font/moheomga_bold"
-        android:textSize="25sp" />
     <Button
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginTop="70dp"
         android:text="로그인"
         android:fontFamily="@font/moheomga_bold"
         android:textSize="25sp"/>
-
+    <Button
+        android:id="@+id/join"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginTop="30dp"
+        android:text="회원가입"
+        android:fontFamily="@font/moheomga_bold"
+        android:textSize="25sp" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="~ 신토불이 ~ 신토불이 ~ 신토불이 ~ 신토불이 ~"
+        android:layout_gravity="center"
+        android:textSize="20dp"
+        android:fontFamily="@font/moheomga_bold"/>
 </LinearLayout>
