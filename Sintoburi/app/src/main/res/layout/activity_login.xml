@@ -111,6 +111,6 @@
         android:layout_height="wrap_content"
         android:text="~ 신토불이 ~ 신토불이 ~ 신토불이 ~ 신토불이 ~"
         android:layout_gravity="center"
-        android:textSize="20dp"
+        android:textSize="17dp"
         android:fontFamily="@font/moheomga_bold"/>
 </LinearLayout>
