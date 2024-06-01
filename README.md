@@ -56,7 +56,7 @@
 
 <img src = "./img/img7.jpg" width="200" height="400"/>|<img src = "./img/img8.jpg" width="200" height="400"/>|<img src = "./img/img9.jpg" width="200" height="400"/>|
 |:---:|:---:|:---:|
-|상품 검색|상품 등록|등록된 상품|
+|상품 검색|찜 상품 목록|등록된 상품|
 
 <img src = "./img/img10.jpg" width="200" height="400"/>|<img src = "./img/img11.jpg" width="200" height="400"/>|
 |:---:|:---:|
