@@ -199,13 +199,6 @@ public class AddProductFragment extends Fragment {
         }
     }
 
-    private Uri getImageUri(Context context, Bitmap bitmap) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Temp", null);
-        return Uri.parse(path);
-    }
-
     private void uploadItem() {
         final String title = titleEditText.getText().toString().trim();
         final String price = priceEditText.getText().toString().trim();

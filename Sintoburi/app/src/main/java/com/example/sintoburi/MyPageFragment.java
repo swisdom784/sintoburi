@@ -45,6 +45,11 @@ public class MyPageFragment extends Fragment {
             public void onClick(View v) {
                 // 프로필 수정 버튼 클릭 시 동작 구현
                 Toast.makeText(getContext(), "프로필 수정 버튼 클릭", Toast.LENGTH_SHORT).show();
+                // 프로필 수정 버튼 클릭 시 EditProfile 프래그먼트로 전환
+                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, new EditProfile()); // 수정이 필요한 부분
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
@@ -76,11 +81,8 @@ public class MyPageFragment extends Fragment {
                 Toast.makeText(getContext(), "상품 등록", Toast.LENGTH_SHORT).show();
                 // 상품 등록 버튼 클릭 시 AddProductFragment로 전환
                 FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-<<<<<<< HEAD:Sintoburi/app/src/main/java/com/example/sintoburi/Mypage.java
-                transaction.replace(R.id.fragment_container, new com.example.sintoburi.AddProduct());
-=======
                 transaction.replace(R.id.fragment_container, new AddProductFragment());
->>>>>>> yang:Sintoburi/app/src/main/java/com/example/sintoburi/MyPageFragment.java
+
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -89,8 +91,11 @@ public class MyPageFragment extends Fragment {
         wishlistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 찜 버튼 클릭 시 동작 구현
-                Toast.makeText(getContext(), "찜 버튼 클릭", Toast.LENGTH_SHORT).show();
+                // 찜 버튼 클릭 시 MyWishFragment로 전환
+                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, new MyWish());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
