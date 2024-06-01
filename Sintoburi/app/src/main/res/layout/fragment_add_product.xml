@@ -83,28 +83,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/descriptionEditText" />
 
-    <!-- 이미지 등록하기 버튼 -->
-    <Button
-        android:id="@+id/imageAddButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/black"
-        android:text="이미지 등록하기"
-        app:layout_constraintEnd_toEndOf="@id/photoImageView"
-        app:layout_constraintStart_toStartOf="@id/photoImageView"
-        app:layout_constraintTop_toBottomOf="@id/photoImageView" />
-
     <!-- 사진 이미지뷰 -->
     <ImageView
         android:id="@+id/photoImageView"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@id/submitButton"
+        app:layout_constraintBottom_toTopOf="@id/galleryButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tagSpinner" />
+
+    <!-- 갤러리 버튼 -->
+    <Button
+        android:id="@+id/galleryButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/black"
+        android:text="갤러리"
+        app:layout_constraintEnd_toStartOf="@+id/cameraButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/photoImageView" />
+
+    <!-- 카메라 버튼 -->
+    <Button
+        android:id="@+id/cameraButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/black"
+        android:text="카메라"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/galleryButton"
+        app:layout_constraintTop_toBottomOf="@id/photoImageView" />
 
     <!-- 등록하기 버튼 -->
     <Button

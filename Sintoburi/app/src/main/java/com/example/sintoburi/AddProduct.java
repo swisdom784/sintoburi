@@ -1,8 +1,14 @@
 package com.example.sintoburi;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +23,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,13 +38,19 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public class AddProduct extends Fragment {
 
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int CAMERA_REQUEST_CODE = 2;
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 3;
 
     private EditText titleEditText;
     private EditText priceEditText;
@@ -75,13 +90,21 @@ public class AddProduct extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, tags);
         tagSpinner.setAdapter(adapter);
 
-        Button imageAddButton = view.findViewById(R.id.imageAddButton);
+        Button galleryButton = view.findViewById(R.id.galleryButton);
+        Button cameraButton = view.findViewById(R.id.cameraButton);
         Button submitButton = view.findViewById(R.id.submitButton);
 
-        imageAddButton.setOnClickListener(new View.OnClickListener() {
+        galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openGallery();
+            }
+        });
+
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCamera();
             }
         });
 
@@ -102,13 +125,80 @@ public class AddProduct extends Fragment {
         startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요"), PICK_IMAGE_REQUEST);
     }
 
+    private void openCamera() {
+        Log.d("AddProduct", "openCamera: Checking permissions");
+        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{
+                    android.Manifest.permission.CAMERA,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+            }, CAMERA_PERMISSION_REQUEST_CODE);
+        }
+        Log.d("AddProduct", "openCamera: Permissions granted, opening camera");
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            if (photoFile != null) {
+                imageUri = FileProvider.getUriForFile(getContext(), "com.example.sintoburi.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+            }
+        } else {
+            Log.e("AddProduct", "openCamera: No camera app found");
+            Toast.makeText(getContext(), "카메라 앱을 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        // 이미지 파일명 생성
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File imageFile = File.createTempFile(
+                imageFileName,
+                ".jpg",
+                storageDir
+        );
+        return imageFile;
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d("AddProduct", "onRequestPermissionsResult: Permission granted, opening camera");
+                openCamera();
+            } else {
+                Log.e("AddProduct", "onRequestPermissionsResult: Permission denied");
+                Toast.makeText(getContext(), "카메라 권한이 필요합니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
-            photoImageView.setImageURI(imageUri);
+        Log.d("AddProduct", "onActivityResult: requestCode " + requestCode + ", resultCode " + resultCode);
+        if (resultCode == getActivity().RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST_CODE) {
+                Log.d("AddProduct", "onActivityResult: Image captured from camera");
+                // 이미지를 비트맵으로 디코딩하지 않고 바로 이미지뷰에 설정
+                photoImageView.setImageURI(imageUri);
+            } else if (requestCode == PICK_IMAGE_REQUEST && data != null && data.getData() != null) {
+                Log.d("AddProduct", "onActivityResult: Image picked from gallery");
+                imageUri = data.getData();
+                photoImageView.setImageURI(imageUri);
+            } else {
+                Log.e("AddProduct", "onActivityResult: Unknown requestCode or data is null");
+            }
+        } else {
+            Log.e("AddProduct", "onActivityResult: Result not OK");
         }
     }
 
