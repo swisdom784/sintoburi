@@ -40,9 +40,8 @@
 
 
 ## 디자인
-<img src = "./img/img1.jpg" width="200" height="400"/>
-<img src = "./img/img2.jpg" width="200" height="400"/>
-<img src = "./img/img3.jpg" width="200" height="400"/>
+<img src = "./img/img1.jpg" width="200" height="400"/>|<img src = "./img/img2.jpg" width="200" height="400"/>|<img src = "./img/img3.jpg" width="200" height="400"/>|
+|:---:|:---:|:---:|
 <img src = "./img/img4.jpg" width="200" height="400"/>
 
 <img src = "./img/img5.jpg" width="200" height="400"/>
