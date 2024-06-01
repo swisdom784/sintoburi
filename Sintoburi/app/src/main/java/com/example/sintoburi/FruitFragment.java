@@ -3,6 +3,7 @@ package com.example.sintoburi;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class FruitFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Firebase Database 참조
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("products");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Products");
         productList = new ArrayList<>();
 
         // 어댑터 설정
@@ -67,13 +68,13 @@ public class FruitFragment extends Fragment {
         });
 
         // 카테고리 버튼 클릭 이벤트 설정
+        setLinearLayoutListener(view, R.id.allButton, null);
         setLinearLayoutListener(view, R.id.fruitButton, "과일");
         setLinearLayoutListener(view, R.id.vegetableButton, "채소");
         setLinearLayoutListener(view, R.id.seafoodButton, "수산물");
         setLinearLayoutListener(view, R.id.meatButton, "육류");
         setLinearLayoutListener(view, R.id.sideDishButton, "반찬");
         setLinearLayoutListener(view, R.id.snackButton, "간식");
-        setLinearLayoutListener(view, R.id.dailyNecessitiesButton, "생필품");
         setLinearLayoutListener(view, R.id.plantButton, "식물");
         setLinearLayoutListener(view, R.id.healthFoodButton, "건강식품");
         setLinearLayoutListener(view, R.id.otherButton, "기타");
@@ -83,7 +84,13 @@ public class FruitFragment extends Fragment {
 
     private void setLinearLayoutListener(View parentView, int layoutId, String category) {
         LinearLayout layout = parentView.findViewById(layoutId);
-        layout.setOnClickListener(v -> filterByCategory(category));
+        layout.setOnClickListener(v -> {
+            if (category == null) {
+                showAllProducts();
+            } else {
+                filterByCategory(category);
+            }
+        });
     }
 
     private void loadDataFromFirebase() {
@@ -93,14 +100,16 @@ public class FruitFragment extends Fragment {
                 productList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Product product = snapshot.getValue(Product.class);
-                    productList.add(product);
+                    if (product != null) {
+                        productList.add(product);
+                    }
                 }
                 productAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // 에러 처리
+                Log.e("FirebaseDatabase", "Error: " + databaseError.getMessage());
             }
         });
     }
@@ -124,6 +133,11 @@ public class FruitFragment extends Fragment {
             }
         }
         productAdapter = new ProductAdapter(getContext(), filteredList);
+        recyclerView.setAdapter(productAdapter);
+    }
+
+    private void showAllProducts() {
+        productAdapter = new ProductAdapter(getContext(), productList);
         recyclerView.setAdapter(productAdapter);
     }
 }

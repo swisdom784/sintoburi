@@ -7,8 +7,8 @@
     <ImageView
         android:id="@+id/productImageView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"/>
+        android:layout_height="428dp"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/productNameTextView"
@@ -17,6 +17,14 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginTop="16dp"/>
+    <Button
+        android:id="@+id/buy_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="구매"
+        android:textSize="18sp"
+        android:padding="8dp"
+        android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/priceTextView"
@@ -31,4 +39,5 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:layout_marginTop="8dp"/>
+
 </LinearLayout>

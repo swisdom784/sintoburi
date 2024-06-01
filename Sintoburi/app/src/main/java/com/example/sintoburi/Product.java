@@ -102,4 +102,6 @@ public class Product implements Serializable {
     public void setFavoriteCount(int favoriteCount) {
         this.favoriteCount = favoriteCount;
     }
+
+
 }
