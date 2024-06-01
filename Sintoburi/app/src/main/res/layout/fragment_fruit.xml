@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:hint="Search Products"
         android:padding="14dp"
-        android:elevation="2dp"/> <!-- 그림자 추가 -->
+        android:elevation="2dp"
+        android:background="@drawable/edittext_border"/> <!-- 그림자 추가 -->
          <!-- 테두리 둥글게 -->
 
 
@@ -27,7 +28,7 @@
         android:padding="8dp">
 
         <LinearLayout
-            android:id="@+id/fruitButton"
+            android:id="@+id/allButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_row="0"
@@ -35,10 +36,39 @@
             android:layout_columnWeight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="?attr/selectableItemBackground"
+            android:background="@drawable/button_border"
             android:padding="8dp"
             android:clickable="true"
             android:focusable="true">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/all_image" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전체"
+                android:gravity="center"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+        <!-- 이와 같은 방식으로 다른 버튼들도 추가합니다 -->
+
+        <LinearLayout
+            android:id="@+id/fruitButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:background="@drawable/button_border"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <ImageView
                 android:layout_width="50dp"
@@ -48,24 +78,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="과일"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:layout_marginTop="4dp"/>
+                android:text="과일" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/vegetableButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_row="0"
+            android:layout_row="1"
             android:layout_column="1"
             android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="?attr/selectableItemBackground"
-            android:padding="8dp"
+            android:background="@drawable/button_border"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <ImageView
                 android:layout_width="50dp"
@@ -75,12 +105,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="채소"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:layout_marginTop="4dp"/>
+                android:text="채소" />
         </LinearLayout>
-
-        <!-- 이와 같은 방식으로 다른 버튼들도 추가합니다 -->
 
         <LinearLayout
             android:id="@+id/seafoodButton"
@@ -91,7 +119,7 @@
             android:layout_columnWeight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="?attr/selectableItemBackground"
+            android:background="@drawable/button_border"
             android:padding="8dp"
             android:clickable="true"
             android:focusable="true">
@@ -118,7 +146,7 @@
             android:layout_columnWeight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="?attr/selectableItemBackground"
+            android:background="@drawable/button_border"
             android:padding="8dp"
             android:clickable="true"
             android:focusable="true">
@@ -145,7 +173,7 @@
             android:layout_columnWeight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="?attr/selectableItemBackground"
+            android:background="@drawable/button_border"
             android:padding="8dp"
             android:clickable="true"
             android:focusable="true">
@@ -174,7 +202,7 @@
             android:layout_columnWeight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="?attr/selectableItemBackground"
+            android:background="@drawable/button_border"
             android:padding="8dp"
             android:clickable="true"
             android:focusable="true">
@@ -192,32 +220,8 @@
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/dailyNecessitiesButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_row="1"
-            android:layout_column="1"
-            android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="?attr/selectableItemBackground"
-            android:padding="8dp"
-            android:clickable="true"
-            android:focusable="true">
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/necessities_image" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="생필품"
-                android:gravity="center"
-                android:layout_marginTop="4dp"/>
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/plantButton"
@@ -228,7 +232,7 @@
             android:layout_columnWeight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="?attr/selectableItemBackground"
+            android:background="@drawable/button_border"
             android:padding="8dp"
             android:clickable="true"
             android:focusable="true">
@@ -255,7 +259,7 @@
             android:layout_columnWeight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="?attr/selectableItemBackground"
+            android:background="@drawable/button_border"
             android:padding="8dp"
             android:clickable="true"
             android:focusable="true">
@@ -282,7 +286,7 @@
             android:layout_columnWeight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="?attr/selectableItemBackground"
+            android:background="@drawable/button_border"
             android:padding="8dp"
             android:clickable="true"
             android:focusable="true">
