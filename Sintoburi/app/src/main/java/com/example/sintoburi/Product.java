@@ -3,6 +3,7 @@ package com.example.sintoburi;
 import java.io.Serializable;
 
 public class Product implements Serializable {
+    private String id; // 제품의 고유 ID
     private String name;
     private String price;
     private String imageUrl;
@@ -26,6 +27,14 @@ public class Product implements Serializable {
         this.uploaderEmail = uploaderEmail;
         this.uploadTime = uploadTime;
         this.favoriteCount = favoriteCount;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
