@@ -38,6 +38,12 @@
 농수산 직거래앱은 지역 사회의 지속 가능한 발전을 위해 필수적인 도구로 작용할 수 있으며, 이는 지역 경제의 활성화, 주민 건강 증진, 환경 보호 등에 크게 기여할 것입니다.
 <br/><br/>
 
+## DB
+<img src = "./img/fb1.png" width="400" height="90"/>|<img src = "./img/fb2.png" width="400" height="80"/>|
+|:---:|:---:|
+|상품 DB|유저 정보 DB|
+<br/>
+
 
 ## 디자인
 <img src = "./img/img1.jpg" width="200" height="400"/>|<img src = "./img/img2.jpg" width="200" height="400"/>|<img src = "./img/img3.jpg" width="200" height="400"/>|
@@ -46,7 +52,7 @@
 
 <img src = "./img/img4.jpg" width="200" height="400"/>|<img src = "./img/img5.jpg" width="200" height="400"/>|<img src = "./img/img6.jpg" width="200" height="400"/>|
 |:---:|:---:|:---:|
-|상품1|상품2|리뷰 남기기|
+|상품1|상품2|상품 등록|
 
 <img src = "./img/img7.jpg" width="200" height="400"/>|<img src = "./img/img8.jpg" width="200" height="400"/>|<img src = "./img/img9.jpg" width="200" height="400"/>|
 |:---:|:---:|:---:|
@@ -55,4 +61,4 @@
 <img src = "./img/img10.jpg" width="200" height="400"/>|<img src = "./img/img11.jpg" width="200" height="400"/>|
 |:---:|:---:|
 |개인정보 수정|내 정보|
-<br/><br/>
+<br/>
