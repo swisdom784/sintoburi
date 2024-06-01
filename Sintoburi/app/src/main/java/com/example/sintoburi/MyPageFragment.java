@@ -21,14 +21,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Mypage extends Fragment {
+public class MyPageFragment extends Fragment {
     private TextView usernameTextView, emailTextView;
     private DatabaseReference userRef;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_mypage, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_page, container, false);
 
         usernameTextView = view.findViewById(R.id.usernameTextView);
         emailTextView = view.findViewById(R.id.emailTextView);
@@ -71,7 +71,7 @@ public class Mypage extends Fragment {
                 Toast.makeText(getContext(), "상품 등록", Toast.LENGTH_SHORT).show();
                 // 상품 등록 버튼 클릭 시 AddProductFragment로 전환
                 FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new AddProduct());
+                transaction.replace(R.id.fragment_container, new AddProductFragment());
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
