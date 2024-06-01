@@ -40,10 +40,16 @@
 
 
 ## 디자인
-|<img src = "./img/img1.png">|<img src = "./img/img2.png">|<img src = "./img/img3.png">|<img src = "./img/img4.png">|
-|:---:|:---:|:---:|:---:|
+<img src = "./img/img1.png" width="200" height="400"/>
+<img src = "./img/img2.png" width="200" height="400"/>
+<img src = "./img/img3.png" width="200" height="400"/>
+<img src = "./img/img4.png" width="200" height="400"/>
 
-|<img src = "./img/img5.png">|<img src = "./img/img6.png">|<img src = "./img/img7.png">|<img src = "./img/img8.png">|
-|:---:|:---:|:---:|:---:|
-|<img src = "./img/img9.png">|<img src = "./img/img10.png">|<img src = "./img/img11.png">|
+<img src = "./img/img5.png" width="200" height="400"/>
+<img src = "./img/img6.png" width="200" height="400"/>>
+<img src = "./img/img7.png" width="200" height="400"/>>
+<img src = "./img/img8.png" width="200" height="400"/>>
+<img src = "./img/img9.png" width="200" height="400"/>>
+<img src = "./img/img10.png" width="200" height="400"/>>
+<img src = "./img/img11.png" width="200" height="400"/>>
 <br/><br/>
