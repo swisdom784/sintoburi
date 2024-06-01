@@ -144,7 +144,7 @@ public class AddProduct extends Fragment {
                 ex.printStackTrace();
             }
             if (photoFile != null) {
-                imageUri = FileProvider.getUriForFile(getContext(), "com.example.sintoburi.fileprovider", photoFile);
+                imageUri = FileProvider.getUriForFile(getContext(), "com.example.android.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
             }
@@ -202,12 +202,20 @@ public class AddProduct extends Fragment {
         }
     }
 
+    private Uri getImageUri(Context context, Bitmap bitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Temp", null);
+        return Uri.parse(path);
+    }
+
     private void uploadItem() {
         final String title = titleEditText.getText().toString().trim();
         final String price = priceEditText.getText().toString().trim();
         final String description = descriptionEditText.getText().toString().trim();
         final String tag = tags[tagSpinner.getSelectedItemPosition()]; // 선택된 태그
 
+        // 입력값 검증
         if (title.isEmpty()) {
             titleEditText.setError("상품 이름을 입력하세요");
             titleEditText.requestFocus();
@@ -237,7 +245,7 @@ public class AddProduct extends Fragment {
             long currentTime = new Date().getTime();
 
             // 상품 객체 생성
-            final Product product = new Product(title, price, null, description, tag, user.getEmail(), currentTime, new ArrayList<String>(), 0);
+            final Product product = new Product(title, price, null, description, tag, user.getEmail(), currentTime, 0);
 
             // 업로드 과정을 시뮬레이션하기 위해 ProgressBar를 보여줍니다.
             progressBar.setVisibility(View.VISIBLE);
@@ -260,14 +268,31 @@ public class AddProduct extends Fragment {
                                     Toast.makeText(getContext(), uri.toString(), Toast.LENGTH_SHORT).show();
 
                                     // 상품 정보 데이터베이스에 저장
-                                    mDatabase.child("Products").child(mDatabase.push().getKey()).setValue(product)
+                                    String productId = mDatabase.child("Products").push().getKey();
+                                    mDatabase.child("Products").child(productId).setValue(product)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     // 상품 정보 저장 성공
                                                     progressBar.setVisibility(View.GONE);
                                                     Toast.makeText(getContext(), "상품이 성공적으로 등록되었습니다.", Toast.LENGTH_SHORT).show();
-                                                    getFragmentManager().popBackStack(); // 이전 프래그먼트로 돌아가기
+
+                                                    // 유저의 상품 목록에 상품 ID 추가
+                                                    mDatabase.child("UserAccount").child(user.getUid()).child("uploadedProducts").child(productId).setValue(true)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    // 유저의 상품 목록에 추가 성공
+                                                                    getFragmentManager().popBackStack(); // 이전 프래그먼트로 돌아가기
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    // 유저의 상품 목록에 추가 실패
+                                                                    Toast.makeText(getContext(), "유저 상품 목록 업데이트에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                                                    Log.e("Firebase", "유저 상품 목록 업데이트 실패: " + e.getMessage());
+                                                                }
+                                                            });
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
                                                 @Override
@@ -305,4 +330,5 @@ public class AddProduct extends Fragment {
             Toast.makeText(getContext(), "사용자 인증이 필요합니다.", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

@@ -1,25 +1,23 @@
 package com.example.sintoburi;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Product implements Serializable {
     private String name;
     private String price;
     private String imageUrl;
     private String description;
-    private String category; // 카테고리 필드 추가
-    private String uploaderEmail; // 등록자 이메일
-    private long uploadTime; // 등록 시간
-    private List<String> favoriteUsersEmails; // 찜한 사람의 이메일 리스트
-    private int favoriteCount; // 찜한 사람의 수
+    private String category;
+    private String uploaderEmail;
+    private long uploadTime;
+    private int favoriteCount;
 
     public Product() {
         // 기본 생성자
     }
 
     public Product(String name, String price, String imageUrl, String description, String category,
-                   String uploaderEmail, long uploadTime, List<String> favoriteUsersEmails, int favoriteCount) {
+                   String uploaderEmail, long uploadTime, int favoriteCount) {
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
@@ -27,7 +25,6 @@ public class Product implements Serializable {
         this.category = category;
         this.uploaderEmail = uploaderEmail;
         this.uploadTime = uploadTime;
-        this.favoriteUsersEmails = favoriteUsersEmails;
         this.favoriteCount = favoriteCount;
     }
 
@@ -87,14 +84,6 @@ public class Product implements Serializable {
         this.uploadTime = uploadTime;
     }
 
-    public List<String> getFavoriteUsersEmails() {
-        return favoriteUsersEmails;
-    }
-
-    public void setFavoriteUsersEmails(List<String> favoriteUsersEmails) {
-        this.favoriteUsersEmails = favoriteUsersEmails;
-    }
-
     public int getFavoriteCount() {
         return favoriteCount;
     }
@@ -102,6 +91,4 @@ public class Product implements Serializable {
     public void setFavoriteCount(int favoriteCount) {
         this.favoriteCount = favoriteCount;
     }
-
-
 }

@@ -53,6 +53,11 @@ public class Mypage extends Fragment {
             public void onClick(View v) {
                 // 상품 관리 버튼 클릭 시 동작 구현
                 Toast.makeText(getContext(), "상품 관리 버튼 클릭", Toast.LENGTH_SHORT).show();
+                // 상품 관리 버튼 클릭 시 MyProductsFragment로 전환
+                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, new MyProduct());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
@@ -71,7 +76,7 @@ public class Mypage extends Fragment {
                 Toast.makeText(getContext(), "상품 등록", Toast.LENGTH_SHORT).show();
                 // 상품 등록 버튼 클릭 시 AddProductFragment로 전환
                 FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new AddProduct());
+                transaction.replace(R.id.fragment_container, new com.example.sintoburi.AddProduct());
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -130,3 +135,4 @@ public class Mypage extends Fragment {
         });
     }
 }
+
