@@ -42,10 +42,17 @@
 ## 디자인
 <img src = "./img/img1.jpg" width="200" height="400"/>|<img src = "./img/img2.jpg" width="200" height="400"/>|<img src = "./img/img3.jpg" width="200" height="400"/>|
 |:---:|:---:|:---:|
+|로그인|회원가입|메인화면|
+
 <img src = "./img/img4.jpg" width="200" height="400"/>|<img src = "./img/img5.jpg" width="200" height="400"/>|<img src = "./img/img6.jpg" width="200" height="400"/>|
 |:---:|:---:|:---:|
+|상품1|상품2|리뷰 남기기|
+
 <img src = "./img/img7.jpg" width="200" height="400"/>|<img src = "./img/img8.jpg" width="200" height="400"/>|<img src = "./img/img9.jpg" width="200" height="400"/>|
 |:---:|:---:|:---:|
+|상품 검색|상품 등록|등록된 상품|
+
 <img src = "./img/img10.jpg" width="200" height="400"/>|<img src = "./img/img11.jpg" width="200" height="400"/>|
 |:---:|:---:|
+|개인정보 수정|내 정보|
 <br/><br/>
