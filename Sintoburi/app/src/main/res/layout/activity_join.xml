@@ -106,7 +106,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/join"
+        android:id="@+id/signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="70dp"
